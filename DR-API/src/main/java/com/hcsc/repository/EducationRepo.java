@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import com.hcsc.entity.EducationDetails;
 
 public interface EducationRepo extends JpaRepository<EducationDetails, Serializable>{
-	@Query("select * from EducationDetails ed inner join ed.caseId as ca on ed.caseId=ca.caseId where ca.caseId=:caseId")
+	@Query("from EducationDetails as ed inner join ed.caseId as ca on ed.caseId.caseId=ca.caseId where ca.caseId=1")
 	public List<EducationDetails> fetchEducationByCaseId(@Param("caseId") Integer caseId);
 }

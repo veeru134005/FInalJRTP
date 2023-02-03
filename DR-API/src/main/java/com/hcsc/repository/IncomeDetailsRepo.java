@@ -11,6 +11,6 @@ import com.hcsc.entity.IncomeDetails;
 
 public interface IncomeDetailsRepo extends JpaRepository<IncomeDetails, Serializable> {
 
-	@Query("select * from IncomeDetails inc inner join inc.caseId as ca on inc.caseId=ca.caseId where ca.caseId=:caseId")
+	@Query("from IncomeDetails inc inner join inc.caseId as ca on inc.caseId=ca.caseId where ca.caseId=:caseId")
 	public List<IncomeDetails> fetchIncomeByCaseId(@Param("caseId") Integer caseId);
 }

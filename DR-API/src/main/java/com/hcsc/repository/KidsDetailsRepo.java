@@ -12,6 +12,6 @@ import com.hcsc.entity.KidsDetails;
 
 public interface KidsDetailsRepo extends JpaRepository<KidsDetails, Serializable> {
 
-	@Query("select * from KidsDetails kid inner join kid.caseId as ca on kid.caseId=ca.caseId where ca.caseId=:caseId")
+	@Query("from KidsDetails kid inner join kid.caseId as ca on kid.caseId=ca.caseId where ca.caseId=:caseId")
 	public List<EducationDetails> fetchKidsByCaseId(@Param("caseId") Integer caseId);
 }

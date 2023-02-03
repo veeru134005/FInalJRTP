@@ -2,7 +2,6 @@ package com.hcsc.service;
 
 import java.util.Map;
 
-import com.hcsc.entity.Case;
 import com.hcsc.pojo.CaseData;
 import com.hcsc.pojo.EducationData;
 import com.hcsc.pojo.IncomeData;
@@ -22,6 +21,6 @@ public interface DataCollectionServiceInter {
 	
 	public String saveKidsDetails(KidsData kitData);
 
-	public Map<String,Object>  getsummary(Case caseData);
+	public Map<String,Object>  getsummary(Integer caseid);
 
 }

@@ -110,13 +110,13 @@ public class DataCollectionServiceImpl implements DataCollectionServiceInter {
 	}
 
 	@Override
-	public Map<String, Object> getsummary(Case caseData) {
+	public Map<String, Object> getsummary(Integer caseid) {
 
 		Map<String, Object> summaryMap = new HashMap<>();
 
-		summaryMap.put("Income", incomeDetailsRepo.fetchIncomeByCaseId(caseData.getCaseId()));
-		summaryMap.put("Education", educationRepo.fetchEducationByCaseId(caseData.getCaseId()));
-		summaryMap.put("Kids", kidsRepo.fetchKidsByCaseId(caseData.getCaseId()));
+		summaryMap.put("Income", incomeDetailsRepo.fetchIncomeByCaseId(caseid));
+		summaryMap.put("Education", educationRepo.fetchEducationByCaseId(caseid));
+		summaryMap.put("Kids", kidsRepo.fetchKidsByCaseId(caseid));
 
 		return summaryMap;
 	}
