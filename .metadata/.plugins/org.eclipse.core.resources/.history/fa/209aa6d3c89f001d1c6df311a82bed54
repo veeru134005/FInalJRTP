@@ -1,0 +1,5 @@
+package com.hcsc.controller;
+
+public class WelcomeController {
+
+}

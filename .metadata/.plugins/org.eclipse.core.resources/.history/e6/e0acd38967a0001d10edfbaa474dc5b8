@@ -1,0 +1,25 @@
+package com.hcsc.entity;
+
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Document
+public class User {
+	@Id
+	private Integer id;
+	private String name;
+	private String emailId;
+	private Long mobileNumber;
+	private String gender;
+	private Date dob;
+	private String ssn;
+}

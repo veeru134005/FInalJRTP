@@ -1,0 +1,5 @@
+package com.hcsc.serviceImpl;
+
+public class UserRegistrationService {
+
+}

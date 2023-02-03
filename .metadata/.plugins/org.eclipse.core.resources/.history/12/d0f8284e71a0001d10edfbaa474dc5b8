@@ -1,0 +1,9 @@
+package com.hcsc.repository;
+
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+
+import com.hcsc.entity.UserRegistration;
+
+public interface UserRegistrationRepo extends ReactiveMongoRepository<UserRegistration, String> {
+
+}

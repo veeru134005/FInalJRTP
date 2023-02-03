@@ -1,0 +1,10 @@
+package com.hcsc.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hcsc.repository.UserRegistrationRepo;
+
+public class ARServiceImpl implements ARServiceInter{
+	@Autowired
+	private UserRegistrationRepo registrationRepo;
+}

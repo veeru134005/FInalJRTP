@@ -1,0 +1,9 @@
+package com.hcsc.repository;
+
+import java.io.Serializable;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IncomeDetails extends JpaRepository<IncomeDetailsRepo, Serializable> {
+
+}

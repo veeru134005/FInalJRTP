@@ -1,0 +1,11 @@
+package com.hcsc.repository;
+
+import java.io.Serializable;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.hcsc.entity.EducationDetails;
+
+public interface EducationRepo extends JpaRepository<EducationDetails, Serializable>{
+
+}

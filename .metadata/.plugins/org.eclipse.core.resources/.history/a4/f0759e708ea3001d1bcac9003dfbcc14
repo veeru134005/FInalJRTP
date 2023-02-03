@@ -1,0 +1,13 @@
+package com.hcsc.repository;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.hcsc.entity.IncomeDetails;
+
+public interface IncomeDetailsRepo extends JpaRepository<IncomeDetails, Serializable> {
+
+	public List<IncomeDetails> fetchIncomeByCaseId(Integer caseId);
+}
