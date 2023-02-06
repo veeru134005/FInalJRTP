@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=D\:\\Acadamy\\PracticeJava\\FInalJRTP\\AR-API\\.git;
-GitRepositoriesView.GitDirectories.relative=AR-API\\.git;
+GitRepositoriesView.GitDirectories=D\:\\Acadamy\\PracticeJava\\FInalJRTP\\AR-API\\.git;D\:\\Acadamy\\PracticeJava\\FInalJRTP\\.git;
+GitRepositoriesView.GitDirectories.relative=AR-API\\.git;.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
