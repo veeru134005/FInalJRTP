@@ -101,7 +101,7 @@ public class EdServiceImpl implements EdServicce {
 		return cte;
 	}
 
-	private CitizenEligibility getSnapEligibility(CitizenEligibility elb) {
+	private void getSnapEligibility(CitizenEligibility elb) {
 
 		Long caseNum = elb.getCaseNum();
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
@@ -114,7 +114,6 @@ public class EdServiceImpl implements EdServicce {
 		} else {
 			elb.setDeniedReason("Income is more then eligible Amount");
 		}
-		return elb;
 	}
 
 	private void getCcapEligibility(CitizenEligibility elb) {
