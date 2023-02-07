@@ -24,6 +24,7 @@ public class CitizenEligibility {
 	private String startDate;
 	private String endDate;
 	private boolean isCitigenEligible;
+	private Integer appId;
 	
 	public String getStartDatewithOneDay() throws ParseException {
 		return DateTimeFormatter.ofPattern("dd/MM/YYYY").format(LocalDate.now().plusDays(1));

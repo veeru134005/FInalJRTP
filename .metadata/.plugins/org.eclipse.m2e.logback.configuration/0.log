@@ -7213,3 +7213,25 @@ org.eclipse.core.runtime.CoreException: Launch configuration ArApiApplication re
 2023-02-06 22:32:32,991 [Worker-104: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ED-API/src/main/resources
 2023-02-06 22:32:32,991 [Worker-104: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ED-API/src/main/resources
 2023-02-06 22:32:32,992 [Worker-104: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ED-API/src/test/java
+2023-02-06 22:41:14,478 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-02-06 22:42:57,915 [Worker-1: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2023-02-06 22:43:00,055 [Worker-1: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:DR-API:0.0.1-SNAPSHOT @ D:\Acadamy\PracticeJava\FInalJRTP\DR-API\pom.xml.
+2023-02-06 22:43:06,106 [Worker-1: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DR-API/src/main/java
+2023-02-06 22:43:06,108 [Worker-1: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /DR-API/src/main/resources
+2023-02-06 22:43:06,109 [Worker-1: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /DR-API/src/main/resources
+2023-02-06 22:43:06,110 [Worker-1: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DR-API/src/test/java
+2023-02-06 22:43:08,282 [Worker-1: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 10 sec
+2023-02-06 22:54:10,592 [Worker-15: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2023-02-06 22:54:11,290 [Worker-15: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:ED-API:0.0.1-SNAPSHOT @ D:\Acadamy\PracticeJava\FInalJRTP\ED-API\pom.xml.
+2023-02-06 22:54:12,780 [Worker-15: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ED-API/src/main/java
+2023-02-06 22:54:12,780 [Worker-15: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ED-API/src/main/resources
+2023-02-06 22:54:12,782 [Worker-15: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /ED-API/src/main/resources
+2023-02-06 22:54:12,783 [Worker-15: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /ED-API/src/test/java
+2023-02-06 22:54:14,533 [Worker-15: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 3 sec
+2023-02-06 23:42:10,696 [Worker-36: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2023-02-06 23:42:11,138 [Worker-36: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:DR-API:0.0.1-SNAPSHOT @ D:\Acadamy\PracticeJava\FInalJRTP\DC-API\pom.xml.
+2023-02-06 23:42:14,586 [Worker-36: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DC-API/src/main/java
+2023-02-06 23:42:14,587 [Worker-36: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /DC-API/src/main/resources
+2023-02-06 23:42:14,587 [Worker-36: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /DC-API/src/main/resources
+2023-02-06 23:42:14,588 [Worker-36: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DC-API/src/test/java
+2023-02-06 23:42:16,356 [Worker-36: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 5 sec

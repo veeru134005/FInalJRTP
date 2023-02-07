@@ -39,49 +39,56 @@ public class EdServiceImpl implements EdServicce {
 	private IncomeDetailsRepo incomeDetailsRepo;
 	@Autowired
 	private CitizenAppRepo citizenAppRepo;
-	
+
 	@Autowired
 	private EducationRepo educationRepo;
-	
+
 	@Autowired
 	private EligibilityRepo eligibilityRepo;
-	
+
 	@Autowired
 	private EdTriggerRepo edTriggerRepo;
-	
+
 	@Override
 	public CitizenEligibility getEligibleData(Long caseNum) {
 
 		DcCaseEntity caseDtl = caseRepo.findByCaseNum(caseNum);
-		CitizenEligibility citiEl = new CitizenEligibility();
+
+		CitizenEligibility cte = null;
 
 		if (caseDtl != null) {
 			String planName = plansRepo.findByPlanId(caseDtl.getPlanId()).getPlanName();
 			String accHoldName = citizenAppRepo.getAccHoldName(caseDtl.getAppId());
-			citiEl.setHolderName(accHoldName);
+
+			cte = new CitizenEligibility(1, planName, "DENIED", 0d, caseNum, "Age Eigibility Issue", accHoldName, "",
+					"", false, caseDtl.getAppId());
+
 			if (planName.equalsIgnoreCase("SNAP")) {
-				citiEl = getSnapEligibility(caseNum, planName);
+				getSnapEligibility(cte);
 			} else if (planName.equalsIgnoreCase("CCAP")) {
-				citiEl = getCcapEligibility(caseNum, planName);
+				getCcapEligibility(cte);
 			} else if (planName.equalsIgnoreCase("MEDICAID")) {
 
-				citiEl = getMedicaidEligibility(caseNum, planName);
+				getMedicaidEligibility(cte);
 			} else if (planName.equalsIgnoreCase("MEDICARE")) {
-
-				citiEl = getMediCareEligibility(caseNum, planName, caseDtl.getAppId());
+				getMediCareEligibility(cte);
 			} else if (planName.equalsIgnoreCase("RIW")) {
-
-				citiEl = getRiwEligibility(caseNum, planName, caseDtl.getAppId());
+				getRiwEligibility(cte);
 			}
 
 		}
 
-		if (citiEl.isCitigenEligible()) {
+		if (cte.isCitigenEligible()) {
+
+			cte.setStatus("Approved");
+			cte.setDeniedReason("NA");
+			cte.setStartDate(cte.getStartDate());
+			cte.setEndDate(cte.getEndDate());
 
 			EligibilityEntity elEntity = new EligibilityEntity();
 			EdTriggerEntity edTriggerEntity = new EdTriggerEntity();
 
-			BeanUtils.copyProperties(citiEl, elEntity);
+			BeanUtils.copyProperties(cte, elEntity);
 
 			EligibilityEntity res = eligibilityRepo.save(elEntity);
 
@@ -91,106 +98,97 @@ public class EdServiceImpl implements EdServicce {
 
 		}
 
-		return citiEl;
-	}
-
-
-	private CitizenEligibility getSnapEligibility(Long caseNum, String planName) {
-
-		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
-
-		CitizenEligibility cte = new CitizenEligibility(1, "SNAP", "DENIED", 0d, caseNum, "NA", "", "", "",false);
-		cte.setStartDate(cte.getStartDate());
-		cte.setEndDate(cte.getEndDate());
-
-		if (income != null
-				&& (income.getSalaryIncome() + income.getPropertyIncome() + income.getPropertyIncome()) <= 3000) {
-			cte.setCaseNum(caseNum);
-			cte.setPlanName(planName);
-			cte.setStatus("Approved");
-			cte.setBeniftAmout(3000d);
-			cte.setDeniedReason("NA");
-			cte.setCitigenEligible(true);
-
-		}
 		return cte;
 	}
 
-	private CitizenEligibility getCcapEligibility(Long caseNum, String planName) {
+	private CitizenEligibility getSnapEligibility(CitizenEligibility elb) {
 
-		CitizenEligibility cte = new CitizenEligibility(1, "CCAP", "DENIED", 0d, caseNum, "Income Eigibility Issue", "", "", "",false);
+		Long caseNum = elb.getCaseNum();
+		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 
+		if (income != null
+				&& (income.getSalaryIncome() + income.getPropertyIncome() + income.getPropertyIncome()) <= 3000) {
+			elb.setBeniftAmout(3000d);
+			elb.setCitigenEligible(true);
+
+		} else {
+			elb.setDeniedReason("Income is more then eligible Amount");
+		}
+		return elb;
+	}
+
+	private void getCcapEligibility(CitizenEligibility elb) {
+
+		Long caseNum = elb.getCaseNum();
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 
 		Optional<DcKidsEntity> kidEl = kidRepo.findByCaseNum(caseNum).stream().filter(k -> k.getKidAge() > 16)
 				.findFirst();
-		
-		if (income != null && ((income.getSalaryIncome() + income.getPropertyIncome() + income.getPropertyIncome()) <= 3000)) {
-			cte.setCaseNum(caseNum);
-			cte.setPlanName(planName);
-			cte.setStatus("Approved");
-			cte.setBeniftAmout(3000d);
-			cte.setDeniedReason("NA");
-			cte.setCitigenEligible(true);
+
+		if (income == null) {
+			elb.setDeniedReason("Income is below eligible Amount");
+		}
+
+		if (income != null
+				&& ((income.getSalaryIncome() + income.getPropertyIncome() + income.getPropertyIncome()) <= 3000)) {
+			elb.setBeniftAmout(3000d);
+			elb.setCitigenEligible(true);
 		}
 		if (!kidEl.isPresent()) {
-			cte.setDeniedReason("Kid age EligibilityIssue");
-			cte.setStatus("DENIED");
-			cte.setCitigenEligible(false);
+			elb.setDeniedReason("Kid age EligibilityIssue");
+			elb.setStatus("DENIED");
+			elb.setCitigenEligible(false);
 		}
-		return cte;
 	}
-	
-	private CitizenEligibility getMedicaidEligibility(Long caseNum, String planName) {
-		CitizenEligibility cte = new CitizenEligibility(1, "MEDICAID", "DENIED", 0d, caseNum, "Income Eigibility Issue","", "", "",false);
+
+	private void getMedicaidEligibility(CitizenEligibility elb) {
+
+		Long caseNum = elb.getCaseNum();
 
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 
-		if (income != null && income.getSalaryIncome() <= 3000 && income.getPropertyIncome() == 0 && income.getRentIncome() == 0) {
-			cte.setCaseNum(caseNum);
-			cte.setPlanName(planName);
-			cte.setStatus("Approved");
-			cte.setBeniftAmout(3000d);
-			cte.setDeniedReason("NA");
-			cte.setCitigenEligible(true);
+		if (income.getSalaryIncome() <= 3000 && income.getPropertyIncome() == 0 && income.getRentIncome() == 0) {
+			elb.setDeniedReason("Income is more then eligible Amount");
 		}
-		return cte;
-	}
-	
-	private CitizenEligibility getMediCareEligibility(Long caseNum, String planName, Integer appId) {
 
-		CitizenEligibility cte = new CitizenEligibility(1, "MEDICAID", "DENIED", 0d, caseNum, "Age Eigibility Issue","", "", "",false);
+		if (income != null && income.getSalaryIncome() <= 3000 && income.getPropertyIncome() == 0
+				&& income.getRentIncome() == 0) {
+			elb.setBeniftAmout(3000d);
+			elb.setDeniedReason("NA");
+			elb.setCitigenEligible(true);
+		}
+	}
+
+	private void getMediCareEligibility(CitizenEligibility elb) {
+
+		Integer appId = elb.getAppId();
 
 		UserRegistration citizenData = citizenAppRepo.findByAppId(appId);
 
-		if (citizenData != null && (cte.getCitiZenAge(citizenData.getDob()) >= 65)) {
-			cte.setCaseNum(caseNum);
-			cte.setPlanName(planName);
-			cte.setStatus("Approved");
-			cte.setBeniftAmout(3000d);
-			cte.setDeniedReason("NA");
-			cte.setCitigenEligible(true);
+		if (citizenData != null && (elb.getCitiZenAge(citizenData.getDob()) >= 65)) {
+			elb.setBeniftAmout(3000d);
+			elb.setDeniedReason("NA");
+			elb.setCitigenEligible(true);
+		} else {
+			elb.setDeniedReason("Eligible Age must be above 65 Years");
 		}
-		return cte;
 	}
-	
-	private CitizenEligibility getRiwEligibility(Long caseNum, String planName, Integer appId) {
-		
-		CitizenEligibility cte = new CitizenEligibility(1, "MEDICAID", "DENIED", 0d, caseNum, "Age Eigibility Issue","", "", "",false);
-		
+
+	private void getRiwEligibility(CitizenEligibility elb) {
+
+		Long caseNum = elb.getCaseNum();
+
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 		DcEducationEntity education = educationRepo.findByCaseNum(caseNum);
-		
-		if(income!=null && income.getSalaryIncome()==0 && education!=null) {
-			cte.setCaseNum(caseNum);
-			cte.setPlanName(planName);
-			cte.setStatus("Approved");
-			cte.setBeniftAmout(3000d);
-			cte.setDeniedReason("NA");
-			cte.setCitigenEligible(true);
+
+		if (income != null && income.getSalaryIncome() == 0 && education != null) {
+			elb.setBeniftAmout(3000d);
+			elb.setDeniedReason("NA");
+			elb.setCitigenEligible(true);
+		} else {
+			elb.setDeniedReason("Eligible only for Unemploye)");
 		}
-		
-		return cte;
+
 	}
 
 }

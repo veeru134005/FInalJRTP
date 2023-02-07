@@ -1,9 +1,0 @@
-package com.hcsc.service;
-
-import com.hcsc.entity.UserRegistration;
-
-public interface ARServiceInter {
-
-	String userRegistration(UserRegistration registration);
-
-}
