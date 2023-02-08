@@ -1,5 +1,8 @@
 package com.hcsc.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -116,27 +119,40 @@ public class EdServiceImpl implements EdServicce {
 		}
 	}
 
+	public Integer getKidAge(DcKidsEntity dcKidsEntity) {
+
+		LocalDate dob = dcKidsEntity.getKidDob();
+		LocalDate today = LocalDate.now();
+
+		return Period.between(dob, today).getYears();
+	}
+
 	private void getCcapEligibility(CitizenEligibility elb) {
 
 		Long caseNum = elb.getCaseNum();
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 
-		Optional<DcKidsEntity> kidEl = kidRepo.findByCaseNum(caseNum).stream().filter(k -> k.getKidAge() > 16)
-				.findFirst();
+		List<DcKidsEntity> listOfKids = kidRepo.findByCaseNum(caseNum);
+
+		Optional<DcKidsEntity> kidEl = listOfKids.stream().filter(i -> (getKidAge(i) > 16)).findFirst();
+
+		if (listOfKids.isEmpty()) {
+			elb.setDeniedReason("Citizen Don't have kids");
+		}
 
 		if (income == null) {
 			elb.setDeniedReason("Income is below eligible Amount");
 		}
 
-		if (income != null
+		if (!kidEl.isPresent()) {
+			elb.setDeniedReason("Kid age must be greater then 16");
+			elb.setCitigenEligible(false);
+		}
+
+		if (kidEl.isPresent() && income != null
 				&& ((income.getSalaryIncome() + income.getPropertyIncome() + income.getPropertyIncome()) <= 3000)) {
 			elb.setBeniftAmout(3000d);
 			elb.setCitigenEligible(true);
-		}
-		if (!kidEl.isPresent()) {
-			elb.setDeniedReason("Kid age EligibilityIssue");
-			elb.setStatus("DENIED");
-			elb.setCitigenEligible(false);
 		}
 	}
 
@@ -146,12 +162,11 @@ public class EdServiceImpl implements EdServicce {
 
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 
-		if (income.getSalaryIncome() <= 3000 && income.getPropertyIncome() == 0 && income.getRentIncome() == 0) {
+		if (income.getSalaryIncome() >= 3000) {
 			elb.setDeniedReason("Income is more then eligible Amount");
 		}
 
-		if (income != null && income.getSalaryIncome() <= 3000 && income.getPropertyIncome() == 0
-				&& income.getRentIncome() == 0) {
+		if (income != null && income.getSalaryIncome() <= 3000) {
 			elb.setBeniftAmout(3000d);
 			elb.setDeniedReason("NA");
 			elb.setCitigenEligible(true);
@@ -180,12 +195,17 @@ public class EdServiceImpl implements EdServicce {
 		DcIncomeEntity income = incomeDetailsRepo.findByCaseNum(caseNum);
 		DcEducationEntity education = educationRepo.findByCaseNum(caseNum);
 
+		if (income.getSalaryIncome() > 0) {
+			elb.setDeniedReason("Eligible only for Unemploye)");
+		}
+		if (education == null) {
+			elb.setDeniedReason("Eligible only for Graduavates)");
+		}
+
 		if (income != null && income.getSalaryIncome() == 0 && education != null) {
 			elb.setBeniftAmout(3000d);
 			elb.setDeniedReason("NA");
 			elb.setCitigenEligible(true);
-		} else {
-			elb.setDeniedReason("Eligible only for Unemploye)");
 		}
 
 	}

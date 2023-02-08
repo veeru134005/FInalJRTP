@@ -25,6 +25,5 @@ public class DcKidsEntity {
 	private Integer kidSsn;
 	private String KidsGender;
 	private Long caseNum;
-	private Integer kidAge;
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.hcsc.entity.Plans"/>
     <fullyQualifiedTypeName name="com.hcsc.pojo.CaseData"/>
@@ -28,7 +27,6 @@
     <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
     <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
@@ -42,7 +40,6 @@
     <fullyQualifiedTypeName name="com.hcsc.repository.IncomeDetailsRepo"/>
     <fullyQualifiedTypeName name="com.hcsc.repository.KidsDetailsRepo"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
-    <fullyQualifiedTypeName name="com.hcsc.pojo.CitizenEligibility"/>
     <fullyQualifiedTypeName name="com.hcsc.entity.CitizenEligibilityEntity"/>
     <fullyQualifiedTypeName name="com.hcsc.repository.CitizenAppRepo"/>
     <fullyQualifiedTypeName name="com.hcsc.repository.EducationRepo"/>
@@ -60,4 +57,7 @@
     <fullyQualifiedTypeName name="com.hcsc.repository.EdTriggerRepo"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.hcsc.entity.EdTriggerEntity"/>
+    <fullyQualifiedTypeName name="com.hcsc.pojo.CitizenEligibility"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="java.time.Period"/>
 </qualifiedTypeNameHistroy>
