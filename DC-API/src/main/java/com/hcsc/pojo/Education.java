@@ -14,7 +14,6 @@ public class Education {
 	private String highestDegree;
 	private Integer graduationYear;
 	private String universityName;
-	
-	private Integer caseId;
+	private Long caseNum;
 	
 }

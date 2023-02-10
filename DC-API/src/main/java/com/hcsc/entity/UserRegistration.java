@@ -25,7 +25,7 @@ public class UserRegistration {
 
 	@javax.persistence.Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer id;
+	private Integer appId;
 	@Column(name = "UserName")
 	private String fname;
 	@Column(name = "EmailId")

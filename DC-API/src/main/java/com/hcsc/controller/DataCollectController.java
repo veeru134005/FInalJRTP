@@ -38,12 +38,12 @@ public class DataCollectController {
 	}
 
 	@PostMapping("/education")
-	public Long saveEducationDetails(Education education) {
+	public Long saveEducationDetails(@RequestBody Education education) {
 		return dataService.saveEducationDetails(education);
 	}
 
 	@PostMapping("/kid")
-	public Summary saveKidsDetails(KidsInfo kitData) {
+	public Summary saveKidsDetails(@RequestBody KidsInfo kitData) {
 		return dataService.saveKidsDetails(kitData);
 	}
 

@@ -1,5 +1,6 @@
 package com.hcsc.service;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -53,7 +54,7 @@ public class EdServiceImpl implements EdServicce {
 	private EdTriggerRepo edTriggerRepo;
 
 	@Override
-	public CitizenEligibility getEligibleData(Long caseNum) {
+	public CitizenEligibility checkEligibility(Long caseNum) {
 
 		DcCaseEntity caseDtl = caseRepo.findByCaseNum(caseNum);
 
@@ -82,23 +83,29 @@ public class EdServiceImpl implements EdServicce {
 		}
 
 		if (cte.isCitigenEligible()) {
+			
+			try {
+				cte.setStatus("Approved");
+				cte.setDeniedReason("NA");
+				cte.setStartDate(cte.getStartDatewithOneDay());
+				cte.setEndDate(cte.getEndDateWithThreeMonths());
+				EligibilityEntity elEntity = new EligibilityEntity();
+				EdTriggerEntity edTriggerEntity = new EdTriggerEntity();
 
-			cte.setStatus("Approved");
-			cte.setDeniedReason("NA");
-			cte.setStartDate(cte.getStartDate());
-			cte.setEndDate(cte.getEndDate());
+				BeanUtils.copyProperties(cte, elEntity);
 
-			EligibilityEntity elEntity = new EligibilityEntity();
-			EdTriggerEntity edTriggerEntity = new EdTriggerEntity();
+				EligibilityEntity res = eligibilityRepo.save(elEntity);
 
-			BeanUtils.copyProperties(cte, elEntity);
+				edTriggerEntity.setCaseNum(res.getCaseNum());
+				edTriggerEntity.setStatus("Pending");
+				edTriggerRepo.save(edTriggerEntity);
+			} 
 
-			EligibilityEntity res = eligibilityRepo.save(elEntity);
-
-			edTriggerEntity.setCaseNum(res.getCaseNum());
-			edTriggerEntity.setStatus("Pending");
-			edTriggerRepo.save(edTriggerEntity);
-
+			
+			catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return cte;

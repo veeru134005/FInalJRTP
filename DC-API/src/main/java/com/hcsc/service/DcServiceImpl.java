@@ -66,7 +66,7 @@ public class DcServiceImpl implements DcService {
 	public Long updateCitizenPlan(PlanSelection planSelection) {
 
 		DcCaseEntity dcCase = new DcCaseEntity();
-		BeanUtils.copyProperties(dcCase, planSelection);
+		BeanUtils.copyProperties(planSelection, dcCase);
 
 		DcCaseEntity dcData = caseRepo.save(dcCase);
 
@@ -96,11 +96,10 @@ public class DcServiceImpl implements DcService {
 	@Override
 	public Summary saveKidsDetails(KidsInfo kidData) {
 
-		kidData.getKidsInfo().stream().forEach(kidsRepo::save);
-
 		Long caseNum = kidData.getCaseNum();
-
 		Summary summary = new Summary();
+		
+		kidData.getKidsInfo().stream().peek(k->k.setCaseNum(caseNum)).forEach(kidsRepo::save);
 
 		summary.setEducationDetails(educationRepo.findByCaseNum(caseNum));
 

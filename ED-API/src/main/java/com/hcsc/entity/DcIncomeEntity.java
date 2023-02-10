@@ -1,6 +1,8 @@
 package com.hcsc.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class DcIncomeEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer incomeId;
 	private Double salaryIncome;
 	private Double rentIncome;

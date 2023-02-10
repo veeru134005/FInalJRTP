@@ -4,6 +4,7 @@ import com.hcsc.pojo.CitizenEligibility;
 
 public interface EdServicce {
 
-	public CitizenEligibility getEligibleData(Long caseNum);
+
+	public CitizenEligibility checkEligibility(Long caseNum);
 
 }

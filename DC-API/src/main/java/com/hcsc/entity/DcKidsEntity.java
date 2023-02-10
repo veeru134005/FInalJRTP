@@ -3,6 +3,7 @@ package com.hcsc.entity;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,13 +19,13 @@ import lombok.NoArgsConstructor;
 public class DcKidsEntity {
 
 	@Id
+	@GeneratedValue
 	private Integer kidId;
 
 	private String kidName;
 	private LocalDate kidDob;
-	private String kSsn;
 	private Integer kidSsn;
-	private String KidsGender;
+	private String kidGender;
 	private Long caseNum;
 
 }

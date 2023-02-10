@@ -17,7 +17,6 @@ public class Summary {
 
 	private DcIncomeEntity income;
 	private DcEducationEntity educationDetails;
-	private List<KidsInfo> kidsDetails;
 	private List<DcKidsEntity> kidsEntity;
 	
 }

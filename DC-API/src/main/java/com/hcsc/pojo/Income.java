@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 public class Income {
 
 	private Integer incomeId;
-	private Double monthlySal;
-	private Double rent;
+	private Double salaryIncome;
+	private Double rentIncome;
 	private Double propertyIncome;
 
-	private Integer caseId;
+	private Long caseNum;
 
 }

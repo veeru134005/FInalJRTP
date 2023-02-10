@@ -1,0 +1,69 @@
+
+AR-API
+------
+http://localhost:8080/save
+{
+
+  "fname":"Raji",
+  "email":"babu.veera020@gmail.com",
+  "mobileNum":8500812360,
+  "gender":"M",
+  "dob":"2022-10-10",
+  "ssn": 8500812360,
+  "createDate":"2022-10-10",
+  "updateDate":"2022-10-10",
+  "createdBy":"Raju",
+  "updatedBy":"hari"
+}
+
+DC-API
+-----
+http://localhost:8081/create/1
+
+http://localhost:8081/update (POST)
+{
+ "caseNum":77,
+  "planId":1,
+  "appId":1
+}
+http://localhost:8081/income (POST)
+{
+ "salaryIncome":77,
+  "rentIncome":1,
+  "propertyIncome":1,
+  "caseNum":77
+}
+
+
+http://localhost:8081/education
+
+{
+  "caseNum":77,
+  "kidsInfo":[{
+    "kidName":"RAja",
+    "kidDob":"2022-10-10",
+    "kidSsn":25452,
+    "KidsGender":"M",
+    "caseNum":""
+    
+}]
+}
+
+http://localhost:8081/kid
+
+{
+  "caseNum":77,
+  "kidsInfo":[{
+    "kidName":"RAja",
+    "kidDob":"2022-10-10",
+    "kidSsn":25452,
+    "kidGender":"M"   
+},
+             {
+    "kidName":"Hari",
+    "kidDob":"2022-10-10",
+    "kidSsn":255,
+    "kidGender":"F"
+             }
+             ]
+}
