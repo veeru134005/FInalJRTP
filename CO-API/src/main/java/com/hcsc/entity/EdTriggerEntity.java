@@ -1,8 +1,5 @@
 package com.hcsc.entity;
 
-import java.sql.Blob;
-import java.sql.Clob;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +20,7 @@ public class EdTriggerEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer triggerId;
 	private Long caseNum;
-	private Clob pdf;
+	private byte[] pdf;
 	private String status;
 
 }

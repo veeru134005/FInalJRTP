@@ -18,7 +18,7 @@ import com.hcsc.entity.EdTriggerEntity;
 import com.hcsc.entity.EligibilityEntity;
 import com.hcsc.entity.UserRegistration;
 import com.hcsc.pojo.CitizenEligibility;
-import com.hcsc.repository.CaseRepo;
+import com.hcsc.repository.DcCaseRepo;
 import com.hcsc.repository.CitizenAppRepo;
 import com.hcsc.repository.EdTriggerRepo;
 import com.hcsc.repository.EducationRepo;
@@ -31,7 +31,7 @@ import com.hcsc.repository.PlansRepo;
 public class EdServiceImpl implements EdServicce {
 
 	@Autowired
-	private CaseRepo caseRepo;
+	private DcCaseRepo dcCaseRepo;
 
 	@Autowired
 	private PlansRepo plansRepo;
@@ -56,7 +56,7 @@ public class EdServiceImpl implements EdServicce {
 	@Override
 	public CitizenEligibility checkEligibility(Long caseNum) {
 
-		DcCaseEntity caseDtl = caseRepo.findByCaseNum(caseNum);
+		DcCaseEntity caseDtl = dcCaseRepo.findByCaseNum(caseNum);
 
 		CitizenEligibility cte = null;
 
@@ -64,7 +64,7 @@ public class EdServiceImpl implements EdServicce {
 			String planName = plansRepo.findByPlanId(caseDtl.getPlanId()).getPlanName();
 			String accHoldName = citizenAppRepo.getAccHoldName(caseDtl.getAppId());
 
-			cte = new CitizenEligibility(1, planName, "DENIED", 0d, caseNum, "Age Eigibility Issue", accHoldName, "",
+			cte = new CitizenEligibility(1, planName, "Denied", 0d, caseNum, "Age Eigibility Issue", accHoldName, "",
 					"", false, caseDtl.getAppId());
 
 			if (planName.equalsIgnoreCase("SNAP")) {
@@ -97,7 +97,7 @@ public class EdServiceImpl implements EdServicce {
 				EligibilityEntity res = eligibilityRepo.save(elEntity);
 
 				edTriggerEntity.setCaseNum(res.getCaseNum());
-				edTriggerEntity.setStatus("Pending");
+				edTriggerEntity.setStatus("pending");
 				edTriggerRepo.save(edTriggerEntity);
 			} 
 

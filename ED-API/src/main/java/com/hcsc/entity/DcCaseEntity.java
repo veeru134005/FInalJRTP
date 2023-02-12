@@ -19,7 +19,5 @@ public class DcCaseEntity {
 	private Long caseNum;
 	private Integer planId;
 	private Integer appId;
-	
-	
 
 }

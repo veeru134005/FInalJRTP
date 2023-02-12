@@ -8,4 +8,6 @@ import com.hcsc.entity.EligibilityEntity;
 
 public interface EligibilityRepo extends JpaRepository<EligibilityEntity, Serializable> {
 
+	public EligibilityEntity findByCaseNum(Long caseNum);
+
 }
