@@ -1,0 +1,2 @@
+Case Number,Case Number,FName,SSN,PlanName,BenefitAmout
+77,Raji,8500812360,SNAP,3000.0
